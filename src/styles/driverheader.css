@@ -1,0 +1,142 @@
+/* Driver Header Styles */
+.driver-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #123524; /* Dark green background */
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  border-radius: 12px;
+}
+
+
+
+/* Header title styling */
+.header-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  padding: 0 1rem;
+}
+
+/* Right section containing profile button */
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  min-width: 60px; /* Ensures consistent spacing */
+}
+
+/* Icon button styling */
+.icon-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bus icon specific styling */
+.bx-bus {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4CAF50; /* Green color */
+  transition: transform 0.2s ease;
+}
+
+.bx-bus:hover {
+  transform: scale(1.1);
+}
+
+/* Profile button styling */
+.profile-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Profile image styling */
+.profile-image {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* User circle icon styling */
+.bx-user-circle {
+  font-size: 3rem;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+
+
+/* Back arrow icon styling */
+.bx-arrow-back {
+  font-size: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.bx-arrow-back:hover {
+  transform: translateX(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .driver-header {
+    padding: 0.75rem 1rem;
+    height: 56px;
+  }
+  
+  .header-title {
+    font-size: 1.1rem;
+  }
+  
+  .header-left {
+    gap: 1rem;
+  }
+  
+  .bx-bus {
+    font-size: 1.3rem;
+  }
+  
+  .bx-user-circle {
+    font-size: 2rem;
+  }
+  
+  .profile-image {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+  
+  .bx-arrow-back {
+    font-size: 1.3rem;
+  }
+}

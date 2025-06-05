@@ -1,0 +1,19 @@
+/* DriverLayout.css */
+.driver-layout {
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100vh;
+  position: relative;
+  background-color: #f5f7fa;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  .driver-layout {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    height: 90vh;
+    margin: 5vh auto;
+    border-radius: 15px;
+  }
+}

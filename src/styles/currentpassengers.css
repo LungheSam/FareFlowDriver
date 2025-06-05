@@ -1,0 +1,45 @@
+/* CurrentPassengers.css */
+.current-passengers {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.current-passengers h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.passengers-list {
+  margin-top: 1rem;
+}
+
+.passenger-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.passenger-item:last-child {
+  border-bottom: none;
+}
+
+.passenger-item.low-balance {
+  background-color: #ffebee;
+  border-left: 4px solid #f44336;
+}
+
+.passenger-info p {
+  margin: 0.25rem 0;
+}
+
+.passenger-fare {
+  text-align: right;
+}
+
+.passenger-fare p {
+  margin: 0.25rem 0;
+}
