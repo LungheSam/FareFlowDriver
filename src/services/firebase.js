@@ -5,14 +5,14 @@ import { getFirestore } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCi4wYugLsCw3TMKy-fh2nGhEUMXuHNCjI",
-    authDomain: "fareflow-a1f8c.firebaseapp.com",
-    databaseURL: "https://fareflow-a1f8c-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "fareflow-a1f8c",
-    storageBucket: "fareflow-a1f8c.firebasestorage.app",
-    messagingSenderId: "746807428725",
-    appId: "1:746807428725:web:d8877d98952849f3115a3c",
-    measurementId: "G-FMHQL89TGV"
+    apiKey: process.env.REACT_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_FIREBASE_AUTHDOMAIN,
+    databaseURL: process.env.REACT_FIREBASE_DATABASE_URL,
+    projectId: process.env.REACT_FIREBASE_PROJECTID,
+    storageBucket: process.env.REACT_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_FIREBASE_MESSAGING_SENDID,
+    appId: process.env.REACT_FIREBASE_APPID,
+    measurementId: process.env.REACT_FIREBASE_MEASUREMENTID
   };
 
 const app = initializeApp(firebaseConfig);
