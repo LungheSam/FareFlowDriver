@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../services/firebase';
+import { auth, db } from '../services/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import '../styles/driverMenu.css';
 import DriverHeader from '../components/DriverHeader';
 
 const DriverMenu = () => {
   const navigate = useNavigate();
   const user = auth.currentUser;
+  const [driverInfo, setDriverInfo] = useState(null); // NEW
+
+
+
 
   const menuItems = [
     { icon: 'bx bx-map', label: 'Dashboard', path: '/' },
@@ -22,6 +27,29 @@ const DriverMenu = () => {
       console.error("Logout error:", error);
     }
   };
+  useEffect(() => {
+  if (!user) return;
+
+  const fetchDriverInfo = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'drivers'));
+      const driversList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      // Match by user.uid
+      const currentDriver = driversList.find(driver => driver.email === user.email);
+
+      if (currentDriver) {
+        setDriverInfo(currentDriver);
+      } else {
+        console.warn('Driver not found in Firestore');
+      }
+    } catch (error) {
+      console.error('Error fetching driver info:', error);
+    }
+  };
+
+  fetchDriverInfo();
+}, [user]);
 
   return (
     <div className="driver-menu">
@@ -35,8 +63,9 @@ const DriverMenu = () => {
           )}
         </div>
         <div className='user-profile-content'>
-            <h3>{user?.displayName || 'Driver'}</h3>
-            <p>{user?.email}</p>
+            <h3>{driverInfo?.firstName || 'Driver'}</h3>
+            <p> <strong>{driverInfo?.email}</strong></p>
+            <p>{driverInfo?.phone}</p>
         </div>
         
       </div>

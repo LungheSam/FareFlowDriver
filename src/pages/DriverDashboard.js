@@ -15,7 +15,6 @@ const DriverDashboard = () => {
   const [selectedBus, setSelectedBus] = useState('UAZ-123');
   const [busData, setBusData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userData,setUserData]=useState(null);
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -52,6 +51,32 @@ const DriverDashboard = () => {
       return () => off(busRef);
     }
   }, [selectedBus]);
+  const [driverInfo, setDriverInfo] = useState(null); // NEW
+
+useEffect(() => {
+  if (!user) return;
+
+  const fetchDriverInfo = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'drivers'));
+      const driversList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      // Match by user.uid
+      const currentDriver = driversList.find(driver => driver.email === user.email);
+      console.log(currentDriver);
+      if (currentDriver) {
+        setDriverInfo(currentDriver);
+      } else {
+        console.warn('Driver not found in Firestore');
+      }
+    } catch (error) {
+      console.error('Error fetching driver info:', error);
+    }
+  };
+
+  fetchDriverInfo();
+}, [user]);
+
 
   const startTrip = async () => {
     try {
@@ -82,7 +107,7 @@ const DriverDashboard = () => {
       <DriverHeader showBusIcon={true} />
       
       <div className="dashboard-content">
-        <h2>Welcome, {user?.firstName || 'Driver'}</h2>
+        <h2>Welcome, {driverInfo?.firstName || 'Driver'}</h2>
         
         <div className="bus-selection">
           <label htmlFor="bus-select"></label>

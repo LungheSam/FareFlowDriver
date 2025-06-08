@@ -20,7 +20,7 @@ const DriverHeader = ({
 
   return (
     <header className="driver-header">
-      <h1 className="header-title" onClick={() => navigate('/dashboard')}>
+      <h1 className="header-title" onClick={() => navigate('/')}>
         {title}
       </h1>
       <div className="header-right">
