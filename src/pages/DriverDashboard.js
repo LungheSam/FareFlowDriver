@@ -15,6 +15,7 @@ const DriverDashboard = () => {
   const [selectedBus, setSelectedBus] = useState('UAZ-123');
   const [busData, setBusData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userData,setUserData]=useState(null);
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const DriverDashboard = () => {
           id: doc.id,
           ...doc.data()
         }));
+
         setBuses(busesList);
         setLoading(false);
       } catch (error) {

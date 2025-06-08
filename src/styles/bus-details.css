@@ -1,5 +1,5 @@
 .bus-details {
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #EFE3C2, #f0f4c3);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   padding: 20px;
