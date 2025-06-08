@@ -32,7 +32,7 @@ const DriverLogin = () => {
       }
 
       // Step 3: Redirect to driver dashboard
-      navigate('/dashboard');
+      navigate('/');
 
     } catch (error) {
       console.error('Login error:', error);
