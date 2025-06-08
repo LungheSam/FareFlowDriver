@@ -5,7 +5,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../styles/busmap.css';
 
-// Fix Leaflet marker icon paths
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
@@ -22,6 +21,25 @@ const createBusIcon = () => {
   });
 };
 
+const formatRoutePath = (route) => {
+  const departure = route?.departure || 'Unknown';
+  const destination = route?.destination || 'Unknown';
+
+  if (route?.type === 'dynamic' && route?.vias?.length) {
+    const vias = route.vias;
+    const prices = route.viaPrices || [];
+
+    const formattedVias = vias.map((via, idx) => {
+      const price = prices[idx] || 0;
+      return `${via} (${price} UGX)`;
+    }).join(' → ');
+
+    return `${departure} → ${formattedVias} → ${destination}`;
+  }
+
+  return `${departure} → ${destination}`;
+};
+
 const BusMap = ({ busId }) => {
   const [busData, setBusData] = useState(null);
   const mapRef = useRef(null);
@@ -29,11 +47,9 @@ const BusMap = ({ busId }) => {
   const markerRef = useRef(null);
   const busIcon = createBusIcon();
 
-  // Initialize map
   useEffect(() => {
     if (mapRef.current || !mapContainerRef.current) return;
 
-    // Default center location
     const defaultPosition = [0.3296928, 32.5994707];
 
     mapRef.current = L.map(mapContainerRef.current).setView(defaultPosition, 13);
@@ -42,7 +58,6 @@ const BusMap = ({ busId }) => {
     }).addTo(mapRef.current);
   }, []);
 
-  // Subscribe to bus data and update marker/map
   useEffect(() => {
     if (!busId) return;
 
@@ -57,33 +72,33 @@ const BusMap = ({ busId }) => {
           lng: data.location.longitude,
         };
 
+        const formattedRoute = formatRoutePath(data.route);
+
         setBusData({
           id: busId,
           location: newLocation,
-          routeName: `${data.route?.departure || 'Unknown'} -> ${data.route?.destination || 'Unknown'}`,
+          routeName: formattedRoute,
           departure: data.route?.departure || 'Unknown',
           destination: data.route?.destination || 'Unknown',
           fareAmount: data.route?.fareAmount || 'N/A',
         });
 
-        // If marker doesn't exist, create it
         if (!markerRef.current) {
           markerRef.current = L.marker([newLocation.lat, newLocation.lng], { icon: busIcon })
             .addTo(mapRef.current)
-            .bindPopup('Loading...'); // Temporary
+            .bindPopup('Loading...');
         }
 
-        // Update marker position and popup
         markerRef.current.setLatLng([newLocation.lat, newLocation.lng]);
         markerRef.current.setPopupContent(`
           <b>Bus ID:</b> ${busId}<br/>
-          <b>Route:</b> ${data.route?.departure || 'Unknown'} → ${data.route?.destination || 'Unknown'}<br/>
+          <b>Route Type:</b> ${data.route?.type || 'Unknown'}<br/>
+          <b>Route:</b> ${formattedRoute}<br/>
           <b>Fare:</b> ${data.route?.fareAmount ? `${data.route.fareAmount} UGX` : 'N/A'}<br/>
           <b>From:</b> ${data.route?.departure || 'Unknown'}<br/>
           <b>To:</b> ${data.route?.destination || 'Unknown'}
         `);
 
-        // Open popup and recenter map on bus
         markerRef.current.openPopup();
         mapRef.current.setView([newLocation.lat, newLocation.lng], mapRef.current.getZoom());
       }
@@ -102,4 +117,5 @@ const BusMap = ({ busId }) => {
 };
 
 export default BusMap;
+
 
