@@ -83,7 +83,6 @@ useEffect(() => {
       await update(ref(dbRT, `buses/${selectedBus}`), {
         status: true
       });
-      // navigate('/current-trip');
     } catch (error) {
       console.error("Error starting trip:", error);
     }

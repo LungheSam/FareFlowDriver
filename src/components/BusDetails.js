@@ -63,7 +63,11 @@ const BusDetails = ({ selectedBus, busData, onStartTrip, onUpdateRoute }) => {
 
   const handleEndTrip = async () => {
     try {
-      await update(ref(dbRT, `buses/${selectedBus}`), { status: false });
+      await update(ref(dbRT, `buses/${selectedBus}`), 
+      { 
+        status: false, 
+        passengers:{}
+      });
     } catch (error) {
       console.error('Error ending trip:', error);
     }

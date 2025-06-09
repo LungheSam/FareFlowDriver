@@ -1,6 +1,6 @@
 /* CurrentPassengers.css */
 .current-passengers {
-  background: white;
+  background: linear-gradient(135deg, #EFE3C2, #f0f4c3);
   border-radius: 12px;
   padding: 1.5rem;
   margin-top: 1.5rem;
