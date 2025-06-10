@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore"
 import '../styles/currentpassengers.css';
 const CurrentPassengers = ({ busId }) => {
   const [passengers, setPassengers] = useState([]);
-
+  
   useEffect(() => {
     if (busId) {
       const passengersRef = ref(dbRT, `buses/${busId}/passengers`);
