@@ -15,7 +15,7 @@ const AddFunds = () => {
 
     try {
 
-      const response = await fetch('http://localhost:5000/add-funds', {
+      const response = await fetch('https://fareflowserver-production.up.railway.app/add-funds', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
