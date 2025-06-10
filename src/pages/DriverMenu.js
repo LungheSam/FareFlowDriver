@@ -16,7 +16,6 @@ const DriverMenu = () => {
   const menuItems = [
     { icon: 'bx bx-map', label: 'Dashboard', path: '/' },
     { icon: 'bx bx-money', label: 'Recharge for a card', path: '/add-funds' },
-    { icon: 'bx bx-history', label: 'Trip History', path: '/trip-history' },
     { icon: 'bx bx-bell', label: 'Notifications', path: '/notifications' },
   ];
 

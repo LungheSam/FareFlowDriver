@@ -4,8 +4,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { auth } from './services/firebase';
 import DriverLogin from './pages/DriverLogin';
 import DriverDashboard from './pages/DriverDashboard';
-import TripHistory from './pages/TripHistory';
-import CurrentTrip from './pages/CurrentTrip';
 import NotFound from './pages/NotFound';
 import DriverLayout from './components/DriverLayout';
 import DriverMenu from './pages/DriverMenu';
@@ -43,8 +41,6 @@ const App = () => {
         >
           {/* Root path "/" renders the Dashboard */}
           <Route index element={<DriverDashboard />} />
-          <Route path="trip-history" element={<TripHistory />} />
-          <Route path="current-trip" element={<CurrentTrip />} />
           <Route path="driver-menu" element={<DriverMenu />} />
           <Route path="notifications" element={<NotificationsPage />} />
           <Route path="update-route" element={<UpdateRoute />} />
