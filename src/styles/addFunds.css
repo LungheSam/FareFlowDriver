@@ -1,0 +1,31 @@
+.add-funds-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+.add-funds-main-container{
+    padding:20px;
+}
+.add-funds-container form div {
+  margin-bottom: 1rem;
+}
+
+.add-funds-container input {
+  width: 90%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.success-message {
+  color: green;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: red;
+  margin-top: 1rem;
+}

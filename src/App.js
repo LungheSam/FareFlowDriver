@@ -11,6 +11,7 @@ import DriverLayout from './components/DriverLayout';
 import DriverMenu from './pages/DriverMenu';
 import NotificationsPage from './pages/Notifications';
 import UpdateRoute from './pages/UpdateRoute';
+import AddFunds from './pages/AddFunds';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="driver-menu" element={<DriverMenu />} />
           <Route path="notifications" element={<NotificationsPage />} />
           <Route path="update-route" element={<UpdateRoute />} />
+          <Route path="add-funds" element={<AddFunds />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
