@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { update, ref } from 'firebase/database';
 import { dbRT } from '../services/firebase';
+import { remove } from 'firebase/database';
 import '../styles/bus-details.css';
 
 const BusDetails = ({ selectedBus, busData, onStartTrip, onUpdateRoute }) => {
