@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import '../styles/addFunds.css'; // Optional styling
 import DriverHeader from '../components/DriverHeader';
 
