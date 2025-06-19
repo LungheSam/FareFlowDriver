@@ -15,6 +15,8 @@ const DriverDashboard = () => {
   const [selectedBus, setSelectedBus] = useState('UAZ-123');
   const [busData, setBusData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [locationWatchId, setLocationWatchId] = useState(null);
+
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -78,15 +80,53 @@ useEffect(() => {
 }, [user]);
 
 
+  // const startTrip = async () => {
+  //   try {
+  //     await update(ref(dbRT, `buses/${selectedBus}`), {
+  //       status: true
+  //     });
+  //   } catch (error) {
+  //     console.error("Error starting trip:", error);
+  //   }
+  // };
   const startTrip = async () => {
-    try {
-      await update(ref(dbRT, `buses/${selectedBus}`), {
-        status: true
-      });
-    } catch (error) {
-      console.error("Error starting trip:", error);
+  try {
+    // Update trip status to "started"
+    await update(ref(dbRT, `buses/${selectedBus}`), {
+      status: true
+    });
+
+    // Start location tracking
+    if ("geolocation" in navigator) {
+      const watchId = navigator.geolocation.watchPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+
+          // Push location update to Realtime DB
+          await update(ref(dbRT, `buses/${selectedBus}/location`), {
+            latitude,
+            longitude,
+            // timestamp: Date.now(),
+          });
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+        },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 10000,
+          timeout: 10000
+        }
+      );
+
+      setLocationWatchId(watchId); // Store to stop later if needed
+    } else {
+      console.warn("Geolocation not supported in this browser.");
     }
-  };
+  } catch (error) {
+    console.error("Error starting trip:", error);
+  }
+};
 
   const updateRoute = () => {
     navigate('/update-route', { state: { busId: selectedBus } });
