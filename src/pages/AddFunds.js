@@ -48,7 +48,7 @@ const AddFunds = () => {
       <div className='add-funds-main-container'>
         <form onSubmit={handleAddFunds}>
         <div>
-          <label>Card UID:</label>
+          <label><strong>Card UID:</strong></label>
           <input 
             type="text" 
             value={cardUID} 
@@ -57,7 +57,7 @@ const AddFunds = () => {
           />
         </div>
         <div>
-          <label>Amount (UGX):</label>
+          <label><strong>Amount (UGX):</strong></label>
           <input 
             type="number" 
             value={amount} 

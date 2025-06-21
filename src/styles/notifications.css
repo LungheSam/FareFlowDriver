@@ -3,7 +3,8 @@
   flex-direction: column;
   min-height: 100vh;
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .notifications-container {
