@@ -1,30 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { update, ref } from 'firebase/database';
-import { dbRT } from '../services/firebase';
-import { remove } from 'firebase/database';
 import '../styles/bus-details.css';
 
-const BusDetails = ({ selectedBus, busData, onStartTrip, onUpdateRoute }) => {
+const BusDetails = ({ selectedBus, busData, onStartTrip, onEndTrip, onUpdateRoute }) => {
+
   if (!selectedBus || !busData) return null;
-
-  const handleEndTrip = async () => {
-  try {
-    const busRef = ref(dbRT, `buses/${selectedBus}`);
-
-    // Set status to false
-    await update(busRef, { status: false });
-
-    // Remove passengers list
-    const passengersRef = ref(dbRT, `buses/${selectedBus}/passengers`);
-    await remove(passengersRef);
-    
-    console.log('Trip ended and passenger list cleared.');
-  } catch (error) {
-    console.error('Error ending trip:', error);
-  }
-};
-
 
   const route = busData.route || {};
   const isDynamic = route.type === 'dynamic';
@@ -62,7 +42,7 @@ const BusDetails = ({ selectedBus, busData, onStartTrip, onUpdateRoute }) => {
             Start Trip
           </button>
         ) : (
-          <button onClick={handleEndTrip} className="action-button warning">
+          <button onClick={onEndTrip} className="action-button warning">
             End Trip
           </button>
         )}

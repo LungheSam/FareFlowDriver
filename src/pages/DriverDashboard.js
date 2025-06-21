@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db, dbRT } from '../services/firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { ref, onValue, off, update } from 'firebase/database';
+import { ref, onValue, off, update,remove } from 'firebase/database';
 import DriverHeader from '../components/DriverHeader';
 import BusMap from '../components/BusMap';
 import CurrentPassengers from '../components/CurrentPassenger';
@@ -80,16 +80,7 @@ useEffect(() => {
 }, [user]);
 
 
-  // const startTrip = async () => {
-  //   try {
-  //     await update(ref(dbRT, `buses/${selectedBus}`), {
-  //       status: true
-  //     });
-  //   } catch (error) {
-  //     console.error("Error starting trip:", error);
-  //   }
-  // };
-  const startTrip = async () => {
+const startTrip = async () => {
   try {
     // Update trip status to "started"
     await update(ref(dbRT, `buses/${selectedBus}`), {
@@ -125,6 +116,29 @@ useEffect(() => {
     }
   } catch (error) {
     console.error("Error starting trip:", error);
+  }
+};
+const stopTrip = async () => {
+  try {
+    const busRef = ref(dbRT, `buses/${selectedBus}`);
+
+    // Set trip status to false
+    await update(busRef, { status: false });
+
+    // Remove passengers list
+    const passengersRef = ref(dbRT, `buses/${selectedBus}/passengers`);
+    await remove(passengersRef);
+
+    // Stop location tracking
+    if (locationWatchId !== null) {
+      navigator.geolocation.clearWatch(locationWatchId);
+      setLocationWatchId(null);
+      console.log('Stopped location tracking.');
+    }
+
+    console.log('Trip ended and passenger list cleared.');
+  } catch (error) {
+    console.error('Error ending trip:', error);
   }
 };
 
@@ -168,11 +182,12 @@ useEffect(() => {
         {selectedBus && busData && (
           <>
             <BusDetails 
-                  selectedBus={selectedBus} 
-                  busData={busData} 
-                  onStartTrip={startTrip} 
-                  onUpdateRoute={updateRoute}
-                />
+                selectedBus={selectedBus} 
+                busData={busData} 
+                onStartTrip={startTrip} 
+                onEndTrip={stopTrip}  
+                onUpdateRoute={updateRoute}
+              />
 
             <div className='bus-map-container'>
               <h2>Current Bus Location</h2>
