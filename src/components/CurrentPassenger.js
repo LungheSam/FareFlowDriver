@@ -27,7 +27,6 @@ const CurrentPassengers = ({ busId }) => {
   useEffect(() => {
     if (busId) {
       const passengersRef = ref(dbRT, `buses/${busId}/passengers`);
-
       const fetchPassengers = async (snapshot) => {
         if (snapshot.exists()) {
           const passengersData = snapshot.val();
@@ -73,7 +72,7 @@ const CurrentPassengers = ({ busId }) => {
                 <p>Card: {passenger.cardUID}</p>
               </div>
               <div className="passenger-fare">
-                <p><strong>Boarded:</strong> {formatTimestamp(passenger.timestamp)}</p>
+                <p><strong>Boarded:</strong> {formatTimestamp(passenger.timestamp?passenger.timestamp:passenger.startTime)}</p>
               </div>
             </div>
           ))}
